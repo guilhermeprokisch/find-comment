@@ -26,12 +26,6 @@ async function run() {
        per_page: 1
     }); 
    
-    const { data: comments } = await octokit.issues.listComments({
-      owner: owner,
-      repo: repo,
-      issue_number: inputs.issueNumber,
-    });
-    
     core.debug('Teste: Teste');
     core.debug(`results: ${inspect(results)}`);
     
@@ -39,28 +33,7 @@ async function run() {
           core.setOutput("issue-id", results.data.items[0].number)
        }else{
           core.setOutput("issue-id", "")
-       }
-    
-    const comment = comments.find((comment) => {
-      return (
-        (inputs.commentAuthor
-          ? comment.user.login === inputs.commentAuthor
-          : true) &&
-        (inputs.bodyIncludes
-          ? comment.body.includes(inputs.bodyIncludes)
-          : true)
-      );
-    });
-
-    if (comment) {
-      core.setOutput("comment-id", comment.id.toString());
-    } else {
-      core.setOutput("comment-id", "");
-    }
-  } catch (error) {
-    core.debug(inspect(error));
-    core.setFailed(error.message);
-  }
+       } 
 }
 
 run();
