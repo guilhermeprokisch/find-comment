@@ -20,13 +20,24 @@ async function run() {
     core.debug(`repository: ${repository}`);
 
     const octokit = github.getOctokit(inputs.token);
-
+    
+    let results = await octokit.search.issues({
+       q: `${inputs.bodyIncludes}+repo:${owner}/${repo}`,
+       per_page: 1
+    }); 
+   
     const { data: comments } = await octokit.issues.listComments({
       owner: owner,
       repo: repo,
       issue_number: inputs.issueNumber,
     });
-
+    
+    if (results.data.items[0].title == inputs.bodyIncludes){
+          core.setOutput("issue-id", results.data.items[0].number)
+       }else{
+          core.setOutput("issue-id", "")
+       }
+    
     const comment = comments.find((comment) => {
       return (
         (inputs.commentAuthor
