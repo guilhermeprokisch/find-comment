@@ -32,6 +32,7 @@ async function run() {
       issue_number: inputs.issueNumber,
     });
     
+    core.debug('Teste')
     core.debug(results)
     
     if (results.data.items[0].title == inputs.bodyIncludes){
