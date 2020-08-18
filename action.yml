@@ -13,7 +13,7 @@ inputs:
   body-includes:
     description: 'A string to search for in the body of comments.'
 outputs:
-  comment-id:
+  issue-id:
     description: 'The id of the first matching comment found.'
 runs:
   using: 'node12'
