@@ -32,6 +32,8 @@ async function run() {
       issue_number: inputs.issueNumber,
     });
     
+    console.log('Teste')
+    
     if (results.data.items[0].title == inputs.bodyIncludes){
           core.setOutput("issue-id", results.data.items[0].number)
        }else{
